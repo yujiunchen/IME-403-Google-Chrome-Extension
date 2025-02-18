@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Time Blocker</title>
+  <style>
+    body { 
+      font-family: sans-serif; 
+      padding: 10px; 
+      min-width: 300px; 
+      min-height: 400px;
+    }
+    label { 
+      display: block; 
+      margin-top: 10px; 
+    }
+  </style>
+</head>
+<body>
+  <h2>Set Screen Time</h2>
+  <label>
+    Website Domain (e.g. example.com):
+    <input type="text" id="domain">
+  </label>
+  <label>
+    Time Limit (in seconds):
+    <input type="number" id="limit">
+  </label>
+  <button id="save">Save</button>
+
+  <h3>Remaining Time</h3>
+  <div id="timers">
+    <!-- Countdown timers will be dynamically inserted here -->
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
+
