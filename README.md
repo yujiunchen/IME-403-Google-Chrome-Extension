@@ -14,7 +14,6 @@ MindfulBrowse is a Chrome extension that helps users track and manage their web 
 - 🔔 **Website Blocking**: Set time limits for specific websites to reduce distractions.
 - 🕰️ **Timers**: Add and manage timers for different sites to regulate browsing time.
 - 🚀 **Minimal & Intuitive UI**: Clean interface with easy-to-use controls.
-- 🤖 **AI Analysis**: Personalized recommendations based on browsing habits.
 
 ## Installation
 
