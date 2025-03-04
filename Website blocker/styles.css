@@ -1,0 +1,450 @@
+/***********************************************
+ * Base & Body
+ ***********************************************/
+ body {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  width: 600px;       /* Increased width for a wider extension */
+  min-height: 400px;
+  box-sizing: border-box;
+}
+
+/***********************************************
+ * Popup Container
+ ***********************************************/
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+}
+
+/***********************************************
+ * Menu Bar (Three Tabs)
+ ***********************************************/
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f1f1f1;
+  border-radius: 9999px;
+  padding: 5px;
+  margin: 10px auto;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.tab-btn.active {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 9999px;
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 4px;
+}
+
+.tab-label {
+  display: block;
+}
+
+/***********************************************
+ * Tab Content
+ ***********************************************/
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/***********************************************
+ * HOME PAGE (White Theme)
+ ***********************************************/
+.home-white {
+  background: #fff;
+  color: #000;
+  min-height: 360px;
+}
+
+.home-white-wrapper {
+  padding: 15px;
+  text-align: center;
+  position: relative;
+}
+
+/* Container for the icon + timer row */
+.home-timer-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;  /* center horizontally */
+  gap: 15px;                /* spacing between gem & timer */
+  margin-bottom: 20px;
+}
+
+.gem-image {
+  width: 100px;   /* Adjust as needed */
+  height: 120px;
+  /* Additional styling if needed */
+}
+
+.large-timer {
+  font-size: 48px; /* Adjust to match desired size */
+  font-weight: bold;
+}
+
+/* Stats row containing two cards side by side */
+.stats-row {
+  display: flex;
+  gap: 20px;        /* spacing between cards */
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* Each card for average time, top website, etc. */
+.stats-card {
+  flex: 1;          /* each card takes equal space */
+  background: #f8f8f8;
+  border-radius: 6px;
+  padding: 15px;
+  text-align: center;
+  min-width: 130px; /* optional to ensure some minimum width */
+}
+
+/* Motivational message card */
+.motivation-card {
+  background: #f8f8f8;
+  border-radius: 6px;
+  padding: 15px;
+  text-align: center;
+}
+
+/***********************************************
+ * SCREEN TIME PAGE
+ ***********************************************/
+.screen-time-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.timers-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.timers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.timer-row {
+  display: flex;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 10px;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.timer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timer-title {
+  font-weight: bold;
+  font-size: 15px;
+  color: #333;
+}
+
+.timer-url {
+  font-size: 13px;
+  color: #666;
+}
+
+.timer-middle {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 5px;
+}
+
+.timer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-timer {
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-timer:checked {
+  background: #4CAF50;
+}
+
+.toggle-timer::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  top: 1px;
+  left: 1px;
+  transition: transform 0.3s;
+}
+
+.toggle-timer:checked::before {
+  transform: translateX(20px);
+}
+
+.edit-timer, .delete-timer {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.edit-timer:hover {
+  color: #ff9800;
+}
+
+.delete-timer:hover {
+  color: #f44336;
+}
+
+.timers-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shortcut-hint {
+  font-size: 12px;
+  color: #999;
+  margin-left: 5px;
+}
+
+.primary-btn,
+.secondary-btn {
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.primary-btn {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.secondary-btn {
+  background: #eee;
+  color: #333;
+}
+
+.primary-btn:hover {
+  background: #45a049;
+}
+
+.secondary-btn:hover {
+  background: #ddd;
+}
+
+/***********************************************
+ * Minimal Pop-Up Modal for Add Timer & Edit Timer
+ ***********************************************/
+.modal {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;  /* Ensures there is space around the modal-content */
+}
+
+.modal-content {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+  margin: auto;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transform: translateX(-20px);  /* Shift pop-up 20px to the left */
+}
+
+.close-btn {
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.minimal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.text-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.time-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-picker-select {
+  width: 60px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+/***********************************************
+ * ANALYTICS PAGE
+ ***********************************************/
+.analytics-wrapper {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #333;
+}
+
+/* Header for analytics */
+.analytics-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.analytics-header .filter-select {
+  padding: 5px;
+  font-size: 14px;
+}
+
+/* Donut chart styling */
+canvas {
+  display: block;
+  margin: 10px auto;
+}
+
+/* NEW USAGE TABLE STYLES */
+.usage-table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.usage-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.site-title {
+  flex: 1;
+  font-weight: bold;
+  color: #333;
+}
+
+.progress-bar {
+  position: relative;
+  flex: 3;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #36A2EB;
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+
+.site-time {
+  font-weight: bold;
+  min-width: 50px;
+  text-align: right;
+}
+
+/* Hide old horizontal usage, tracking log, and AI analysis sections */
+/* These have been replaced by the usage table above */
+/*
+.horizontal-usage-section,
+.tracking-log,
+.ai-analysis {
+  display: none;
+}
+*/

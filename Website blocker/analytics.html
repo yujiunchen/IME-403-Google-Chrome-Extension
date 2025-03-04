@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Screen Time Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Load Chart.js (UMD build) for chart rendering -->
+  <script src="libs/chart.umd.js"></script>
+  <!-- Load the external analytics.js script -->
+  <script src="analytics.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Screen Time Analytics</h2>
+    
+    <!-- Period Selector for "Today" vs. "Daily" -->
+    <select id="analyticsPeriod" class="filter-select">
+      <option value="today">Today</option>
+      <option value="daily">Daily</option>
+    </select>
+    <span class="analytics-subtitle">Usage Data</span>
+    
+    <!-- Canvas for Chart.js (doughnut for "today" or bar for "daily") -->
+    <canvas id="timeChart" width="300" height="300"></canvas>
+    
+    <!-- Container for a usage table (lists sites and their usage) -->
+    <div id="usageTable" class="usage-table">
+      <!-- Rows for each site will be generated dynamically -->
+    </div>
+    
+    <!-- AI Analysis Section -->
+    <div class="ai-analysis">
+      <h3>Personalized AI Analysis</h3>
+      <p id="aiMessage">Analyzing your browsing habits...</p>
+    </div>
+  </div>
+</body>
+</html>

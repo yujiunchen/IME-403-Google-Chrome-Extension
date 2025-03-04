@@ -1,37 +1,56 @@
 {
   "manifest_version": 3,
-  "name": "Screen Time Blocker",
-  "version": "1.2",
-  "description": "Set a screen time for a website, then block it afterwards.",
+  "name": "mindfulbrowse",
+  "version": "1.0",
+  "description": "Track and manage your web usage with timers, analytics, and motivation.",
   "permissions": [
     "storage",
     "tabs",
-    "activeTab",
-    "declarativeNetRequest",
+    "webNavigation",
     "alarms",
     "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js"
   },
-  "action": {
-    "default_popup": "popup.html",
-    "default_title": "Screen Time Blocker"
-  },
-  "host_permissions": [
-    "<all_urls>"
-  ],
-  "web_accessible_resources": [
+  "content_scripts": [
     {
-      "resources": ["block.html", "icon.png"],
-      "matches": ["<all_urls>"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "tracker.js",
+        "warningBar.js"
+      ],
+      "run_at": "document_idle"
     }
   ],
-  "declarative_net_request": {
-    "rule_resources": [{
-      "id": "ruleset_1",
-      "enabled": true,
-      "path": "rules.json"
-    }]
-  }
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "libs/chart.umd.js",
+        "block.html",
+        "timeup.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
 }

@@ -1,40 +1,143 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Screen Time Blocker</title>
-  <style>
-    body { 
-      font-family: sans-serif; 
-      padding: 10px; 
-      min-width: 300px; 
-      min-height: 400px;
-    }
-    label { 
-      display: block; 
-      margin-top: 10px; 
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>mindfulbrowse</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Load Chart.js (UMD build) for the Analytics tab -->
+  <script src="libs/chart.umd.js"></script>
+  <!-- Defer loading of popup.js so it runs after the DOM is ready -->
+  <script src="popup.js" defer></script>
 </head>
 <body>
-  <h2>Set Screen Time</h2>
-  <label>
-    Website Domain (e.g. example.com):
-    <input type="text" id="domain">
-  </label>
-  <label>
-    Time Limit (in seconds):
-    <input type="number" id="limit">
-  </label>
-  <button id="save">Save</button>
-
-  <h3>Remaining Time</h3>
-  <div id="timers">
-    <!-- Countdown timers will be dynamically inserted here -->
+  <div class="popup-container">
+    <!-- Three-Tab Menu Bar -->
+    <div class="tab-container">
+      <!-- Home tab button active by default -->
+      <button class="tab-btn active" data-tab="home">
+        <img src="home.png" class="tab-icon" alt="Home Icon">
+        <span class="tab-label">Home</span>
+      </button>
+      <button class="tab-btn" data-tab="screenTime">
+        <img src="screen.png" class="tab-icon" alt="Screen Time Icon">
+        <span class="tab-label">Screen Time</span>
+      </button>
+      <button class="tab-btn" data-tab="analytics">
+        <img src="analytics.png" class="tab-icon" alt="Analytics Icon">
+        <span class="tab-label">Analytics</span>
+      </button>
+    </div>
+    
+    <!-- HOME TAB (Active by Default) -->
+    <div id="home" class="tab-content home-white active">
+      <div class="home-white-wrapper">
+        <!-- Row with Gem Icon next to the Large Timer -->
+        <div class="home-timer-row">
+          <img src="gem.png" alt="Gem Icon" class="gem-image">
+          <div class="screen-time-today">
+            <span id="homeScreenTime" class="large-timer">00:00:00</span>
+            <p>Total Browse Time Today</p>
+          </div>
+        </div>
+        <!-- Stats Row: Average Screen Time and Top Used Website -->
+        <div class="stats-row">
+          <div class="stats-card">
+            <h4>Average Screen Time per Day</h4>
+            <p id="averageTime">00:00:00</p>
+          </div>
+          <div class="stats-card">
+            <h4>Top Used Website</h4>
+            <p id="topWebsite">No Data</p>
+          </div>
+        </div>
+        <!-- Motivational Message Card -->
+        <div class="motivation-card">
+          <p id="motivationMessage">Motivating message here</p>
+          <button id="shuffleBtn" class="secondary-btn">Shuffle</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- SCREEN TIME TAB -->
+    <div id="screenTime" class="tab-content">
+      <div class="screen-time-wrapper">
+        <!-- Timers Header -->
+        <div class="timers-header">
+          <h2 class="timers-title">Timers <span id="timersCount">(0)</span></h2>
+          <select id="timersFilter" class="filter-select">
+            <option value="all">All</option>
+            <option value="enabled">Enabled</option>
+            <option value="disabled">Disabled</option>
+          </select>
+        </div>
+        <!-- Timers List -->
+        <div id="timersList" class="timers-list">
+          <!-- Timer rows will be dynamically added here -->
+        </div>
+        <!-- Timers Footer -->
+        <div class="timers-footer">
+          <button id="enableAllBtn" class="primary-btn">Enable All <span class="shortcut-hint">Alt + T</span></button>
+          <button id="addTimerBtn" class="secondary-btn">Add Timer</button>
+        </div>
+      </div>
+      <!-- Add Timer Modal -->
+      <div id="addTimerModal" class="modal hidden">
+        <div class="modal-content">
+          <button id="closeAddModal" class="close-btn">
+            <img src="cross.png" alt="Close" style="width: 18px;">
+          </button>
+          <h3>Add Timer</h3>
+          <form id="addTimerForm" class="minimal-form">
+            <label class="input-label">Display Name</label>
+            <input type="text" id="displayName" class="text-input" placeholder="Enter display name">
+            <label class="input-label">Website URL</label>
+            <input type="text" id="newSiteURL" class="text-input" placeholder="e.g., http://google.com">
+            <label class="input-label">Daily Limit</label>
+            <div class="time-picker-row">
+              <select id="limitHours" class="time-picker-select"></select>
+              <label>Hours</label>
+              <select id="limitMinutes" class="time-picker-select"></select>
+              <label>Minutes</label>
+              <select id="limitSeconds" class="time-picker-select"></select>
+              <label>Seconds</label>
+            </div>
+            <button type="button" id="saveAddTimer" class="primary-btn">Add</button>
+          </form>
+        </div>
+      </div>
+      <!-- Timer Edit Modal -->
+      <div id="editTimerModal" class="modal hidden">
+        <div class="modal-content">
+          <button id="closeEditModal" class="close-btn">
+            <img src="cross.png" alt="Close" style="width: 18px;" />
+          </button>
+          <h3>Edit Timer</h3>
+          <label for="editTimerUrl">Website URL:</label>
+          <input type="text" id="editTimerUrl" class="text-input" />
+          <label for="editTimerLimit">Time Limit (seconds):</label>
+          <input type="number" id="editTimerLimit" class="text-input" />
+          <button id="saveEditTimer" class="primary-btn">Save</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ANALYTICS TAB -->
+    <div id="analytics" class="tab-content">
+      <div class="analytics-wrapper">
+        <h2 class="section-title">Screen Time Analytics</h2>
+        <div class="analytics-header">
+          <select id="analyticsPeriod" class="filter-select">
+            <option value="today">Today</option>
+            <option value="daily">Daily</option>
+          </select>
+          <span class="analytics-subtitle">Usage Data</span>
+        </div>
+        <canvas id="timeChart" width="300" height="300"></canvas>
+        <div id="usageTable" class="usage-table">
+          <!-- Rows for each site will be generated dynamically -->
+        </div>
+      </div>
+    </div>
   </div>
-
-  <script src="popup.js"></script>
 </body>
 </html>
-
-
